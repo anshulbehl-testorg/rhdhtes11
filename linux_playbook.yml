@@ -29,3 +29,14 @@
       ansible.builtin.service:
         name: postgresql
         state: started
+
+    - name: Allow the traffic through the firewall
+      ansible.posix.firewalld:
+        port: 5432/tcp
+        permanent: true
+        state: enabled
+        immediate: true
+    
+    - name: Debug message
+      ansible.builtin.debug:
+        msg: The firewall is now open on port 5432
